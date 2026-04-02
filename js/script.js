@@ -1118,3 +1118,24 @@ window.onload = () => {
   document.getElementById('outputFormat').value = 'arduino';
   document.getElementById('outputFormat').onchange();
 };
+
+// --- DHAN MOD START ---
+function downloadHFile() {
+  const outputArea = document.getElementById('code-output');
+  const content = outputArea.value;
+  if (!content || content.trim() === "") {
+    alert("Generate dulu kodenya!");
+    return;
+  }
+  const blob = new Blob([content], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const fileName = (document.getElementById('identifier').value || 'bitmap') + '.h';
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+}
+// --- DHAN MOD END ---
